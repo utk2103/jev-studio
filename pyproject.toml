@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "jev-studio"
 version = "0.1.0"
-description = "MCP server + CLI plugin for Jev Studio."
+description = "One-stop kit for playing with TypeSafe's Jev: MCP tools for Choice/Noul/Score, ready-made prompt libraries, and slash commands for every cookbook."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
