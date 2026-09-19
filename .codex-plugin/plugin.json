@@ -1,0 +1,40 @@
+{
+  "name": "jev-studio",
+  "version": "0.1.0",
+  "description": "MCP server + CLI plugin for Jev Studio. Serves the Jev ruleset over stdio to any MCP host.",
+  "author": {
+    "name": "utk2103",
+    "url": "https://github.com/utk2103"
+  },
+  "homepage": "https://github.com/utk2103/jev-studio",
+  "repository": "https://github.com/utk2103/jev-studio",
+  "license": "Apache-2.0",
+  "keywords": [
+    "evals",
+    "jev",
+    "save-token",
+    "classifier"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/claude-codex-hooks.json",
+  "interface": {
+    "displayName": "jev-studio",
+    "shortDescription": "Lazy senior developer mode",
+    "longDescription": "Prefer YAGNI, the standard library, native platform features, and the smallest correct implementation.",
+    "developerName": "utk2103",
+    "category": "Productivity",
+    "capabilities": [
+      "Instructions",
+      "Lifecycle hooks"
+    ],
+    "websiteURL": "https://github.com/utk2103/jev-studio",
+    "defaultPrompt": [
+      "Use jev-studio mode for this task.",
+      "Review this diff for over-engineering.",
+      "Find the smallest correct implementation."
+    ],
+    "brandColor": "#111111",
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png"
+  }
+}
