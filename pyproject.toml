@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jev-studio"
+version = "0.1.0"
+description = "MCP server + CLI plugin for Jev Studio."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Utkarsh Upadhyay", email = "btoshine774@gmail.com" }]
+keywords = ["mcp", "cli", "jev", "llm", "ai", "plugin"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.6.0",
+    "build>=1.2.0",
+    "twine>=5.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/utk2103/jev-Studio"
+Repository = "https://github.com/utk2103/jev-Studio"
+Issues = "https://github.com/utk2103/jev-Studio/issues"
+
+[project.scripts]
+jev-studio = "jev_studio.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["jev_studio"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "jev_studio",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
