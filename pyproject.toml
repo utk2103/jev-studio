@@ -41,6 +41,7 @@ Issues = "https://github.com/utk2103/jev-Studio/issues"
 
 [project.scripts]
 jev-studio = "jev_studio.server:main"
+jev = "jev_studio.cli.main:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["jev_studio"]
