@@ -1,6 +1,6 @@
 <div align= "center">
 <p align="center">
-  <img width="180" height="180" src="public/logo.svg" alt="Jev Studio logo" style="margin-right:20px;">
+  <img width="180" height="180" src="public/logo.png" alt="Jev Studio logo" style="margin-right:20px;">
 </p>
 <h1>Jev Studio</h1>
 <br>
