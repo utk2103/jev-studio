@@ -1,0 +1,2 @@
+description = "Show Jev Studio commands, modes, and how to switch levels"
+prompt = "Print a compact reference card for Jev Studio: available modes (lite / full / ultra / off), the /jev command to switch levels, and where the ruleset is injected (SessionStart + SubagentStart via hooks/, or MCP prompt/tool via the jev-studio server). One-shot display; do not switch modes."
