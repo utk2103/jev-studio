@@ -1,0 +1,2 @@
+description = "Switch Jev intensity level (lite/full/ultra/off)"
+prompt = "Switch to jev {{args}} mode. If no level specified, use full. Follow the Jev ruleset for the selected intensity."

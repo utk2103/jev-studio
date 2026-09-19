@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'command -v python3 >/dev/null 2>&1 && exec python3 \"$CLAUDE_PLUGIN_ROOT/hooks/jev_activate.py\" || exec python \"$CLAUDE_PLUGIN_ROOT/hooks/jev_activate.py\"'",
+            "commandWindows": "python \"$env:CLAUDE_PLUGIN_ROOT\\hooks\\jev_activate.py\"",
+            "timeout": 5,
+            "statusMessage": "Loading Jev mode..."
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'command -v python3 >/dev/null 2>&1 && exec python3 \"$CLAUDE_PLUGIN_ROOT/hooks/jev_subagent.py\" || exec python \"$CLAUDE_PLUGIN_ROOT/hooks/jev_subagent.py\"'",
+            "commandWindows": "python \"$env:CLAUDE_PLUGIN_ROOT\\hooks\\jev_subagent.py\"",
+            "timeout": 5,
+            "statusMessage": "Loading Jev mode..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'command -v python3 >/dev/null 2>&1 && exec python3 \"$CLAUDE_PLUGIN_ROOT/hooks/jev_mode_tracker.py\" || exec python \"$CLAUDE_PLUGIN_ROOT/hooks/jev_mode_tracker.py\"'",
+            "commandWindows": "python \"$env:CLAUDE_PLUGIN_ROOT\\hooks\\jev_mode_tracker.py\"",
+            "timeout": 5,
+            "statusMessage": "Tracking Jev mode..."
+          }
+        ]
+      }
+    ]
+  }
+}
