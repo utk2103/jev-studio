@@ -1,37 +1,41 @@
 {
   "name": "jev-studio",
   "version": "0.1.0",
-  "description": "MCP server + CLI plugin for Jev Studio. Serves the Jev ruleset over stdio to any MCP host.",
+  "description": "One-stop kit for playing with TypeSafe's Jev: MCP tools for Choice/Noul/Score, ready-made prompt libraries, and slash commands for every cookbook.",
   "author": {
     "name": "utk2103",
     "url": "https://github.com/utk2103"
   },
   "homepage": "https://github.com/utk2103/jev-studio",
   "repository": "https://github.com/utk2103/jev-studio",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "keywords": [
-    "evals",
+    "typesafe",
     "jev",
-    "save-token",
-    "classifier"
+    "mcp",
+    "choice",
+    "noul",
+    "score",
+    "cookbooks"
   ],
   "skills": "./skills/",
   "hooks": "./hooks/claude-codex-hooks.json",
   "interface": {
     "displayName": "jev-studio",
-    "shortDescription": "Lazy senior developer mode",
-    "longDescription": "Prefer YAGNI, the standard library, native platform features, and the smallest correct implementation.",
+    "shortDescription": "One-stop kit for TypeSafe's Jev",
+    "longDescription": "MCP tools for Choice/Noul/Score, ready-made prompt libraries, and slash commands for every TypeSafe Jev cookbook.",
     "developerName": "utk2103",
     "category": "Productivity",
     "capabilities": [
-      "Instructions",
+      "MCP tools",
+      "Slash commands",
       "Lifecycle hooks"
     ],
     "websiteURL": "https://github.com/utk2103/jev-studio",
     "defaultPrompt": [
-      "Use jev-studio mode for this task.",
-      "Review this diff for over-engineering.",
-      "Find the smallest correct implementation."
+      "Route this ticket with Jev.",
+      "Rerank these passages against the query with Jev.",
+      "Score this response for helpfulness with Jev."
     ],
     "brandColor": "#111111",
     "composerIcon": "./assets/logo.png",

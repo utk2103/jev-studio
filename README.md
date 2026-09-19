@@ -5,7 +5,7 @@
 <h1>Jev Studio</h1>
 <br>
 
-TypeSafe's Jev model at the command line, plus an MCP server for the Jev ruleset. Two entry points, one package.
+One-stop kit for playing with TypeSafe's Jev: MCP tools for Choice/Noul/Score, ready-made prompt libraries, and slash commands for every cookbook.
 
 <div>
   <img src="https://badgen.net/badge/status/Under%20Development/red?icon=lgtm" alt="status">

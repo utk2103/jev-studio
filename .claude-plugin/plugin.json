@@ -1,7 +1,7 @@
 {
   "name": "jev-studio",
   "version": "0.1.0",
-  "description": "MCP server + CLI plugin for Jev Studio. Serves the Jev ruleset over stdio to any MCP host.",
+  "description": "One-stop kit for playing with TypeSafe's Jev: MCP tools for Choice/Noul/Score, ready-made prompt libraries, and slash commands for every cookbook.",
   "author": {
     "name": "utk2103",
     "url": "https://github.com/utk2103"

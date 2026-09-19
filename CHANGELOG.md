@@ -10,6 +10,14 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 
 ## [Unreleased]
 
+### Changed
+- Repositioned repo as a "one-stop kit for playing with TypeSafe's Jev". Updated
+  description across `README.md`, `pyproject.toml`, `.claude-plugin/plugin.json`,
+  `.claude-plugin/marketplace.json`, and `.codex-plugin/plugin.json`.
+- Codex plugin manifest: `license` corrected to MIT (matches `LICENSE`);
+  `shortDescription`, `longDescription`, `keywords`, `capabilities`, and
+  `defaultPrompt` rewritten around Choice/Noul/Score judgments.
+
 ### Added
 
 ## [0.1.0] - 2026-09-20
