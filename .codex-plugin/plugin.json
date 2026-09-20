@@ -18,7 +18,6 @@
     "score",
     "cookbooks"
   ],
-  "skills": "./skills/",
   "hooks": "./hooks/claude-codex-hooks.json",
   "interface": {
     "displayName": "jev-studio",
@@ -38,7 +37,7 @@
       "Score this response for helpfulness with Jev."
     ],
     "brandColor": "#111111",
-    "composerIcon": "./assets/logo.png",
-    "logo": "./assets/logo.png"
+    "composerIcon": "./public/logo.png",
+    "logo": "./public/logo.png"
   }
 }
