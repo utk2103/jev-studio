@@ -69,7 +69,7 @@ def _global_parser() -> argparse.ArgumentParser:
     net.add_argument("-m", "--model", metavar="NAME", help="Jev model, e.g. jev-latest or jev-1.13.0")
     net.add_argument("-P", "--provider", metavar="NAME", help="auto, typesafe, openrouter, or cloudflare")
     net.add_argument("--timeout", metavar="MS", help="per-request timeout in milliseconds")
-    net.add_argument("--dry-run", dest="dry_run", action="store_true", help="print the request that would be sent and exit")
+    net.add_argument("--dry-run", dest="dry_run", action="store_true", help="print the request, cwd, config sources, and resolved-bundle sha256, then exit")
     return p
 
 

@@ -37,6 +37,28 @@ from .provider import list_models
 from .utils import parse_fail_on, parse_probability
 
 
+def _dry_run_envelope(command: str, ctx: CommandContext, request: dict[str, Any]) -> dict[str, Any]:
+    """Envelope printed by --dry-run: request + cwd + config provenance + bundle hash."""
+    return {
+        "dry_run": True,
+        "command": command,
+        "cwd": os.getcwd(),
+        "provider": ctx.config["provider"],
+        "model": ctx.config["model"],
+        "request": request,
+        "provenance": ctx.provenance,
+    }
+
+
+def _emit_dry_run(command: str, ctx: CommandContext, request: dict[str, Any]) -> int:
+    emit(
+        OutputOptions(format="json", color=False, quiet=False, stream=ctx.output.stream),
+        _dry_run_envelope(command, ctx, request),
+        lambda: View(),
+    )
+    return Exit.OK
+
+
 # ── verify ──────────────────────────────────────────────────────────────────
 
 
@@ -103,12 +125,7 @@ def _cmd_verify(args: argparse.Namespace, ctx: CommandContext) -> int:
     fail_on = parse_fail_on(args.fail_on, core.VERIFY_FAIL_CONDITIONS, ["contradicted"])
     if ctx.dry_run:
         req = core.build_verify_request(claims, evidence)
-        emit(
-            OutputOptions(format="json", color=False, quiet=False, stream=ctx.output.stream),
-            {"model": ctx.config["model"], "state": req["state"], "questions": req["questions"]},
-            lambda: View(),
-        )
-        return Exit.OK
+        return _emit_dry_run("verify", ctx, {"state": req["state"], "questions": req["questions"]})
     output = core.run_verify(ctx.ask(), claims, evidence, auto_accept)
     emit(ctx.output, output, lambda: _view_verify(output, ctx.output.color))
     return Exit.JUDGMENT if core.verify_failed(output, fail_on) else Exit.OK
@@ -163,8 +180,7 @@ def _cmd_screen(args: argparse.Namespace, ctx: CommandContext) -> int:
     fail_on = parse_fail_on(args.fail_on, core.SCREEN_FAIL_CONDITIONS, ["block"])
     if ctx.dry_run:
         req = core.build_screen_request(text, args.purpose)
-        emit(OutputOptions(format="json", stream=ctx.output.stream), {"model": ctx.config["model"], **req}, lambda: View())
-        return Exit.OK
+        return _emit_dry_run("screen", ctx, dict(req))
     out = core.run_screen(ctx.ask(), text, args.purpose, block_at, review_at)
     emit(ctx.output, out, lambda: _view_screen(out, ctx.output.color))
     return Exit.JUDGMENT if core.screen_failed(out, fail_on) else Exit.OK
@@ -285,12 +301,7 @@ def _cmd_extract(args: argparse.Namespace, ctx: CommandContext) -> int:
     fail_on = parse_fail_on(args.fail_on, core.EXTRACT_FAIL_CONDITIONS, ["missing"])
     if ctx.dry_run:
         req = core.build_extract_request(text, fields, args.context)
-        emit(
-            OutputOptions(format="json", stream=ctx.output.stream),
-            {"model": ctx.config["model"], "state": req["state"], "questions": req["questions"]},
-            lambda: View(),
-        )
-        return Exit.OK
+        return _emit_dry_run("extract", ctx, {"state": req["state"], "questions": req["questions"]})
     out = core.run_extract(ctx.ask(), text, fields, args.context, min_conf)
     emit(ctx.output, out, lambda: _view_extract(out))
     return Exit.JUDGMENT if core.extract_failed(out, fail_on) else Exit.OK
@@ -432,12 +443,7 @@ def _cmd_ask(args: argparse.Namespace, ctx: CommandContext) -> int:
     else:
         questions = core.questions_from_flags(args.noul or [], args.choice or [], args.score or [])
     if ctx.dry_run:
-        emit(
-            OutputOptions(format="json", stream=ctx.output.stream),
-            {"model": ctx.config["model"], "state": state, "questions": questions},
-            lambda: View(),
-        )
-        return Exit.OK
+        return _emit_dry_run("ask", ctx, {"state": state, "questions": questions})
     out = core.run_ask(ctx.ask(), state, questions)
     emit(ctx.output, out, lambda: View(
         kv=[(k, json.dumps(v)) for k, v in out["answers"].items()],

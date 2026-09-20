@@ -1,9 +1,11 @@
 """Config file, env overrides, flag merging."""
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 from copy import deepcopy
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -135,11 +137,57 @@ def resolve_config(
     flags: dict[str, Any] | None = None,
     use_file: bool = True,
 ) -> dict[str, Any]:
+    return resolve_config_with_provenance(env=env, flags=flags, use_file=use_file)[0]
+
+
+def _flatten(d: dict[str, Any], prefix: str = "") -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for k, v in d.items():
+        key = f"{prefix}.{k}" if prefix else k
+        if isinstance(v, dict):
+            out.update(_flatten(v, key))
+        else:
+            out[key] = v
+    return out
+
+
+def resolve_config_with_provenance(
+    env: dict[str, str] | None = None,
+    flags: dict[str, Any] | None = None,
+    use_file: bool = True,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Return (config, provenance). provenance has per-dotted-key source + file meta + bundle sha256."""
     env = env if env is not None else dict(os.environ)
-    file = read_config_file(config_path(env)) if use_file else {}
-    merged = merge_config(deepcopy(DEFAULTS), file, config_from_env(env), flags or {})
+    path = config_path(env)
+    file = read_config_file(path) if use_file else {}
+    env_layer = config_from_env(env)
+    flag_layer = flags or {}
+
+    merged = merge_config(deepcopy(DEFAULTS), file, env_layer, flag_layer)
     _validate(merged)
-    return merged
+
+    sources = {"default": DEFAULTS, "file": file, "env": env_layer, "flag": flag_layer}
+    source_by_key: dict[str, str] = {}
+    for name, layer in sources.items():
+        for k in _flatten(layer):
+            source_by_key[k] = name
+
+    canonical = json.dumps(merged, sort_keys=True, separators=(",", ":")).encode()
+    provenance = {
+        "config_file": {
+            "path": path,
+            "exists": os.path.exists(path) if use_file else False,
+            "mtime": _iso_mtime(path) if use_file and os.path.exists(path) else None,
+            "used": bool(use_file),
+        },
+        "sources": source_by_key,
+        "resolved_bundle_sha256": hashlib.sha256(canonical).hexdigest(),
+    }
+    return merged, provenance
+
+
+def _iso_mtime(path: str) -> str:
+    return datetime.fromtimestamp(os.path.getmtime(path), tz=timezone.utc).isoformat()
 
 
 def _validate(cfg: dict[str, Any]) -> None:

@@ -5,7 +5,7 @@ import os
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
-from .config import FORMATS, PROVIDERS, resolve_config
+from .config import FORMATS, PROVIDERS, resolve_config_with_provenance
 from .credentials import with_stored_credentials
 from .errors import CliError
 from .io_utils import OutputOptions, should_color
@@ -18,6 +18,7 @@ class CommandContext:
     env: dict[str, str]
     output: OutputOptions
     dry_run: bool
+    provenance: dict[str, Any]
     _ask_factory: Callable[[dict[str, Any], dict[str, str]], AskFn]
     _cached_ask: AskFn | None = field(default=None)
 
@@ -64,7 +65,9 @@ def build_context(
     stream: Any = None,
 ) -> CommandContext:
     env = with_stored_credentials(env if env is not None else dict(os.environ))
-    config = resolve_config(env=env, flags=flags_to_config(flags), use_file=use_file)
+    config, provenance = resolve_config_with_provenance(
+        env=env, flags=flags_to_config(flags), use_file=use_file
+    )
     output = OutputOptions(
         format=config["format"],
         color=False if flags.get("no_color") else should_color(env),
@@ -82,5 +85,6 @@ def build_context(
         env=env,
         output=output,
         dry_run=bool(flags.get("dry_run")),
+        provenance=provenance,
         _ask_factory=factory,
     )
