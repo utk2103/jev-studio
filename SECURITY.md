@@ -2,17 +2,27 @@
 
 ## Supported Versions
 
-Only the latest release on `main` receives security fixes.
+Only the latest stable release of Prompt Studio is supported with security patches.
 
 ## Reporting a Vulnerability
 
-Report privately via GitHub's [Security Advisory](https://github.com/utk2103/jev-studio/security/advisories/new) form.
+Do **not** open a public issue for security bugs.
 
-Do not open public issues for security problems. We aim to acknowledge reports within 3 business days and to ship a fix or mitigation within 30 days for confirmed issues.
+Report privately via [GitHub Security Advisories](https://github.com/utk2103/jev-studio/security/advisories/new) or email the maintainer at btoshine774@gmail.com.
+
+Expect an acknowledgement within 72 hours.
 
 ## Scope
 
-- The `jev-studio` package
-- Commands, hooks, and MCP configuration shipped in this repo
+In scope:
+- FastAPI backend (`app/`)
+- Alembic migrations (`alembic/`)
+- Skills, hooks, commands (`skills/`, `hooks/`, `commands/`)
 
-Out of scope: bugs in TypeSafe Jev itself (report upstream) and third-party dependencies (report to their maintainers).
+Out of scope:
+- Upstream LLM provider vulnerabilities (report to the provider)
+- Issues requiring a pre-compromised host
+
+## Secrets
+
+API keys are read from environment variables. Never commit `.env` files.

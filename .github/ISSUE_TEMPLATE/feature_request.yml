@@ -1,0 +1,63 @@
+name: Feature request
+description: Propose a new capability for jev-studio (MCP tools, CLI, slash commands, hooks).
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us evaluate this request with concrete use cases and tradeoffs.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One-line statement of the requested capability.
+      placeholder: Add `jev score --batch` to run Score across a JSONL file of prompts.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      placeholder: Running Score one prompt at a time in a loop is slow and hides aggregate stats.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed solution
+      description: Desired behavior/API/UX with as much specificity as possible.
+      placeholder: |
+        `jev score --batch inputs.jsonl --out results.jsonl`
+        - Reuses existing Score MCP tool
+        - Emits one result object per input line
+        - Summary line at end: count, mean, p50, p95
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      placeholder: Shell loop with `xargs` — no aggregation, no shared client, slow.
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      placeholder: |
+        Affected: Cookbook users running eval sweeps
+        Severity: Medium (workaround exists but is slow)
+        Frequency: Every eval run
+        Consequence: 10x slower cookbooks, no batch stats
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence/examples
+      description: Prior art, links, sample inputs/outputs.
+  - type: textarea
+    id: additional_information
+    attributes:
+      label: Additional information
+      description: Constraints, references, or compatibility notes.
