@@ -16,9 +16,7 @@ Expect an acknowledgement within 72 hours.
 
 In scope:
 - FastAPI backend (`app/`)
-- Next.js frontend (`frontend/`)
 - Alembic migrations (`alembic/`)
-- `lean-mcp/` middleware
 - Skills, hooks, commands (`skills/`, `hooks/`, `commands/`)
 
 Out of scope:
