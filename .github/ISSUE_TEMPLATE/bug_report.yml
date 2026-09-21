@@ -1,0 +1,122 @@
+name: Bug report
+description: Report defects in jev-studio (MCP server, CLI, slash commands, or hooks).
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing this report. Keep every answer concise, reproducible, and grounded in observed evidence.
+        Do not speculate beyond the evidence. If a section cannot be answered from available evidence, respond with exactly `NOT_ENOUGH_INFO`.
+  - type: dropdown
+    id: bug_type
+    attributes:
+      label: Bug type
+      options:
+        - Regression (worked before, now fails)
+        - Crash (process exits/hangs)
+        - Behavior bug (incorrect output/state without crash)
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Affected surface
+      description: Which part of jev-studio the bug shows up in.
+      options:
+        - MCP server (Choice / Noul / Score tools)
+        - CLI (`jev` binary — verify/screen/extract/ask/dry-run)
+        - Slash commands
+        - Hooks
+        - Packaging / install
+        - Docs
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One-sentence statement of what is broken, based only on observed evidence.
+      placeholder: "`jev verify --dry-run` omits `resolved_bundle_sha256` when config file is missing."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Shortest deterministic repro path.
+      placeholder: |
+        1. `pip install jev-studio==0.1.0`
+        2. In an empty dir with no `jev.config.*`, run `jev verify --dry-run --input foo.txt`
+        3. Observe emitted JSON envelope missing the `provenance.resolved_bundle_sha256` key.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: Envelope always includes `provenance.resolved_bundle_sha256` (null when no config file resolved).
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: Key absent entirely; downstream schema validation fails.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: jev-studio version
+      placeholder: 0.1.0 (or commit SHA if from source)
+    validations:
+      required: true
+  - type: input
+    id: python_version
+    attributes:
+      label: Python version
+      placeholder: 3.11.8
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: macOS 15.4 / Ubuntu 24.04 / Windows 11
+    validations:
+      required: true
+  - type: input
+    id: install_method
+    attributes:
+      label: Install method
+      placeholder: pip / pipx / from source (editable) / plugin install
+  - type: input
+    id: jev_model
+    attributes:
+      label: Jev model / provider (if relevant)
+      description: Only for tool-call bugs. Leave blank for CLI-only or packaging bugs.
+      placeholder: typesafe/jev-1
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, envelopes, screenshots
+      description: Include redacted logs, the JSON envelope from `--dry-run`, or MCP client traces.
+      render: shell
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact and severity
+      placeholder: |
+        Affected: All users invoking `jev verify --dry-run` without a config file
+        Severity: High (breaks downstream provenance consumers)
+        Frequency: 100% reproducible
+        Consequence: Schema-validated CI pipelines fail
+    validations:
+      required: true
+  - type: textarea
+    id: additional_information
+    attributes:
+      label: Additional information
+      description: For regressions, include last known good and first known bad versions.
