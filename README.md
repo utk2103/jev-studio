@@ -8,8 +8,10 @@
 One-stop kit for playing with TypeSafe's Jev: MCP tools for Choice/Noul/Score, ready-made prompt libraries, and slash commands for every cookbook.
 
 <div>
-  <img src="https://badgen.net/badge/status/Under%20Development/red?icon=lgtm" alt="status">
-  <img src="https://img.shields.io/badge/Version-0.1.0-brightgreen.svg" alt="version">
+  <a href="https://pypi.org/project/jev-studio/"><img src="https://img.shields.io/pypi/v/jev-studio.svg?color=brightgreen" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/jev-studio/"><img src="https://img.shields.io/pypi/dm/jev-studio.svg?color=blue" alt="PyPI downloads/month"></a>
+  <a href="https://pepy.tech/project/jev-studio"><img src="https://static.pepy.tech/badge/jev-studio" alt="Total downloads"></a>
+  <img src="https://img.shields.io/pypi/pyversions/jev-studio.svg" alt="Python versions">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="license">
   <img src="https://img.shields.io/github/commit-activity/m/utk2103/jev-Studio" alt="commits">
   <img src="https://img.shields.io/github/repo-size/utk2103/jev-Studio" alt="repo size">
