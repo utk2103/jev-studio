@@ -1,6 +1,6 @@
 {
   "name": "jev-studio",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "One-stop kit for playing with TypeSafe's Jev: MCP tools for Choice/Noul/Score, ready-made prompt libraries, and slash commands for every cookbook.",
   "author": {
     "name": "utk2103",

@@ -10,6 +10,14 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+### Fixed
+
+## [0.2.1] - 2026-09-22
+
 ### Fixed
 - MCP server failed to start on fresh installs because `mcp>=1.0.0`
   resolved to `mcp` 2.x, where `mcp.server.fastmcp` was renamed to
