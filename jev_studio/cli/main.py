@@ -21,6 +21,7 @@ from .commands import (
     register_screen,
     register_update,
     register_verify,
+    register_version,
 )
 from .context import build_context
 from .errors import CliError, Exit, describe_error
@@ -111,7 +112,39 @@ def build_parser() -> argparse.ArgumentParser:
     register_auth(sub)
     register_config(sub)
     register_update(sub)
+    register_version(sub)
     return parser
+
+
+_SKIP_UPDATE_CHECK = frozenset({"update", "version", "help"})
+
+
+def _warn_if_outdated(args: argparse.Namespace) -> None:
+    """Print a one-line stderr warning if a newer jev-studio is on PyPI.
+
+    Cached daily via `version_check.check_for_update`. Best-effort: any network
+    or filesystem failure skips silently. Suppressed by `JEV_NO_UPDATE_CHECK=1`,
+    `-q`/`--quiet`, and for the `update`/`version` commands themselves.
+    """
+    if os.environ.get("JEV_NO_UPDATE_CHECK") == "1":
+        return
+    if getattr(args, "quiet", False):
+        return
+    command = getattr(args, "command", None)
+    if command in _SKIP_UPDATE_CHECK:
+        return
+
+    from .version_check import check_for_update
+
+    current = _version()
+    try:
+        latest = check_for_update(current)
+    except Exception:
+        return
+    if latest:
+        sys.stderr.write(
+            f"jev: update available ({current} -> {latest}). Run `jev update` to install.\n"
+        )
 
 
 def _global_flags(ns: argparse.Namespace) -> dict:
@@ -132,14 +165,15 @@ def _global_flags(ns: argparse.Namespace) -> dict:
 def main(argv: list[str] | None = None) -> None:
     parser = build_parser()
     args = parser.parse_args(argv)
+    exit_code: int | None = None
     try:
         ctx = build_context(_global_flags(args), env=dict(os.environ))
         code = args.func(args, ctx)
         if code and code != Exit.OK:
-            sys.exit(code)
+            exit_code = code
     except CliError as err:
         sys.stderr.write(f"jev: {err}\n")
-        sys.exit(err.exit_code)
+        exit_code = err.exit_code
     except KeyboardInterrupt:
         sys.stderr.write("jev: interrupted\n")
         sys.exit(130)
@@ -149,7 +183,11 @@ def main(argv: list[str] | None = None) -> None:
             import traceback
 
             traceback.print_exc()
-        sys.exit(Exit.ERROR)
+        exit_code = Exit.ERROR
+
+    _warn_if_outdated(args)
+    if exit_code:
+        sys.exit(exit_code)
 
 
 if __name__ == "__main__":

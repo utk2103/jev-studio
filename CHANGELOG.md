@@ -10,6 +10,20 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 
 ## [Unreleased]
 
+### Added
+- `jev version` subcommand — prints the running version, same as
+  `jev -V` / `jev --version`. Ported from `jev-cli` 0.2.3.
+- Daily update-check on PyPI (`jev_studio/cli/version_check.py`).
+  Warns on stderr when a newer `jev-studio` is available; result cached
+  for 24 h at `~/.config/jev/update-check.json`. Suppressed by
+  `JEV_NO_UPDATE_CHECK=1`, `-q`/`--quiet`, and on the `update`/`version`
+  commands. Ported from `jev-cli` 0.2.3.
+- Third-party hop notice in `jev_studio/cli/provider.py`. When `-P auto`
+  (the default) falls back to `openrouter` or `cloudflare` because no
+  TypeSafe key is set, a one-line stderr message names the host that
+  state and questions will pass through. Silent when `-P` is explicit.
+  Ported from `jev-cli` 0.2.3.
+
 ### Fixed
 - MCP server failed to start on fresh installs because `mcp>=1.0.0`
   resolved to `mcp` 2.x, where `mcp.server.fastmcp` was renamed to
