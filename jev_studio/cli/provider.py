@@ -11,7 +11,7 @@ from typing import Any, Callable
 
 from .errors import CliError
 
-USER_AGENT = "jevctl"
+USER_AGENT = "jev-studio"
 REFERER = "https://github.com/utk2103/jev-Studio"
 OPENROUTER_LATEST = "jev-1.13"
 

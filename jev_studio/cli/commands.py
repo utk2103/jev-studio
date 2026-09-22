@@ -464,7 +464,7 @@ def register_ask(sub: argparse._SubParsersAction) -> None:
     p.add_argument("--noul", action="append", metavar="[ID=]TEXT", help="yes/no question (repeatable)")
     p.add_argument("--choice", action="append", metavar="[ID=]TEXT|a,b:desc", help="choice question")
     p.add_argument("--score", action="append", metavar="[ID=]TEXT|lvl0,lvl1,...", help="score question")
-    p.add_argument("--questions-json", metavar="REF", help="questions as JSON")
+    p.add_argument("-Q", "--questions-json", metavar="REF", help="questions as JSON")
     p.set_defaults(func=_cmd_ask)
 
 
@@ -749,6 +749,8 @@ def register_batch(sub: argparse._SubParsersAction) -> None:
 
 
 def _cmd_models(args: argparse.Namespace, ctx: CommandContext) -> int:
+    if ctx.dry_run:
+        return _emit_dry_run("models", ctx, {})
     models = list_models(ctx.env, ctx.config["timeoutMs"])
     def view() -> View:
         rows = [[m.get("id") or "-", m.get("description") or "-"] for m in models]

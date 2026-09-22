@@ -10,9 +10,28 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 
 ## [Unreleased]
 
-### Added
+### Fixed
+- MCP server failed to start on fresh installs because `mcp>=1.0.0`
+  resolved to `mcp` 2.x, where `mcp.server.fastmcp` was renamed to
+  `mcp.server.mcpserver` — pinned `mcp>=1.0.0,<2` in `pyproject.toml`.
+  Reported in #11.
+- `jev ask -q <ref>` collided with the global `--quiet` short flag and
+  argparse swallowed the value as an unrecognized positional. Added
+  `-Q` as the short flag for `--questions-json`. Reported in #11.
+- `jev models --dry-run` still hit the network. Added a `ctx.dry_run`
+  branch that returns an empty-request dry-run envelope. Reported in #11.
 
 ### Changed
+- `USER_AGENT` in `jev_studio/cli/provider.py` renamed from `"jevctl"`
+  to `"jev-studio"` so outbound requests are attributable to this
+  package, not the upstream `jev-cli` npm binary. Reported in #11.
+- Keychain `SERVICE` name in `jev_studio/cli/credentials.py` renamed
+  from `"jevctl"` to `"jev-studio"` so this package does not read from
+  or overwrite credentials stored by `jev-cli` when both are installed
+  on the same machine. **Users who ran `jev auth login` on 0.2.0 will
+  need to re-run it after upgrading.** Reported in #11.
+
+### Added
 
 ## [0.2.0] - 2026-09-21
 
