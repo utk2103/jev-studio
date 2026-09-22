@@ -21,7 +21,7 @@ ENV_VAR: dict[str, str] = {
     "openrouter": "OPENROUTER_API_KEY",
 }
 
-SERVICE = "jevctl"
+SERVICE = "jev-studio"
 
 
 @dataclass
