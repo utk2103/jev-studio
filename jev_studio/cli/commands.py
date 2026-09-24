@@ -896,3 +896,26 @@ def _cmd_update(args: argparse.Namespace, ctx: CommandContext) -> int:
 def register_update(sub: argparse._SubParsersAction) -> None:
     p = sub.add_parser("update", help="Check PyPI for a newer jev-studio release", description="Check PyPI for a newer jev-studio release.")
     p.set_defaults(func=_cmd_update)
+
+
+# ── version ─────────────────────────────────────────────────────────────────
+
+
+def _cmd_version(args: argparse.Namespace, ctx: CommandContext) -> int:
+    from importlib.metadata import PackageNotFoundError, version as pkg_version
+
+    try:
+        current = pkg_version("jev-studio")
+    except PackageNotFoundError:
+        current = "0.0.0"
+    sys.stdout.write(f"{current}\n")
+    return Exit.OK
+
+
+def register_version(sub: argparse._SubParsersAction) -> None:
+    p = sub.add_parser(
+        "version",
+        help="Print the jev-studio version (same as -V/--version)",
+        description="Print the jev-studio version. Same as jev -V or jev --version.",
+    )
+    p.set_defaults(func=_cmd_version)

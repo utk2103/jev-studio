@@ -5,6 +5,7 @@ import json
 import re
 import socket
 import ssl
+import sys
 import urllib.error
 import urllib.request
 from typing import Any, Callable
@@ -14,6 +15,35 @@ from .errors import CliError
 USER_AGENT = "jev-studio"
 REFERER = "https://github.com/utk2103/jev-Studio"
 OPENROUTER_LATEST = "jev-1.13"
+
+_HOP_HOSTS = {
+    "typesafe": "api.typesafe.ai",
+    "openrouter": "openrouter.ai",
+    "cloudflare": "api.cloudflare.com",
+}
+
+
+def notice_third_party_hop(
+    resolved: str,
+    requested: str,
+    notify: Callable[[str], None] | None = None,
+) -> None:
+    """Warn on stderr when `auto` falls back to a non-TypeSafe provider.
+
+    An `OPENROUTER_API_KEY` another tool left in the environment is enough
+    for auto to route state and questions through a third party. Print once
+    per command so the hop is never in the path unannounced. Passing `-P
+    <provider>` keeps this silent — the user chose it deliberately.
+    """
+    if requested != "auto" or resolved == "typesafe":
+        return
+    host = _HOP_HOSTS.get(resolved, resolved)
+    write = notify if notify is not None else (lambda m: sys.stderr.write(m))
+    write(
+        f"jev: no TypeSafe key found, using {resolved}: your state and questions "
+        f"pass through {host}. Run `jev auth login` for TypeSafe direct, or pass "
+        f"-P {resolved} to choose it deliberately and silence this.\n"
+    )
 
 AskFn = Callable[[Any, dict[str, Any]], "AskResult"]
 
@@ -149,6 +179,7 @@ def create_ask(
     env: dict[str, str],
 ) -> AskFn:
     resolved = resolve_provider(env, provider)
+    notice_third_party_hop(resolved, provider)
     effective_model = provider_model(resolved, model)
 
     def _typesafe_ask(state: Any, questions: dict[str, Any]) -> AskResult:
