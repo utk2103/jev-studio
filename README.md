@@ -20,6 +20,9 @@ One-stop kit for playing with TypeSafe's Jev: MCP tools for Choice/Noul/Score, r
 
 </div>
 
+## Badges 
+[![jev-studio MCP server – quality and maintenance score on Glama](https://glama.ai/mcp/servers/utk2103/jev-studio/badges/score.svg)](https://glama.ai/mcp/servers/utk2103/jev-studio)
+[![M8ven Score](https://m8ven.ai/badge/mcp/utk2103/jev-studio)](https://m8ven.ai/mcp/utk2103/jev-studio)
 
 ## Install
 
