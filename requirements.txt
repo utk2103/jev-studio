@@ -28,7 +28,7 @@ h11==0.16.0
     #   uvicorn
 httpcore2==2.13.0
     # via httpx2
-httpx2==2.13.0
+httpx2==2.13.1
     # via mcp
 idna==3.20
     # via
