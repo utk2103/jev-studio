@@ -52,7 +52,7 @@ pydantic==2.13.5
     #   mcp-types
 pydantic-core==2.49.0
     # via pydantic
-pyjwt[crypto]==2.14.0
+pyjwt[crypto]==2.15.0
     # via mcp
 python-multipart==0.0.32
     # via mcp
