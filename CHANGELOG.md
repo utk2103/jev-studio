@@ -11,6 +11,9 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 ## [Unreleased]
 
 ### Added
+- README "Scriptability" section documenting read-only vs state-mutating
+  CLI commands and the `--yes` convention for future destructive commands;
+  cross-linked from `SECURITY.md` (#12).
 - `jev version` subcommand — prints the running version, same as
   `jev -V` / `jev --version`. Ported from `jev-cli` 0.2.3.
 - Daily update-check on PyPI (`jev_studio/cli/version_check.py`).

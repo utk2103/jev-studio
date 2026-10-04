@@ -147,6 +147,27 @@ JEV_CONFIG     JEV_CREDENTIALS   JEV_CREDENTIAL_STORE   JEV_NO_STORED_CREDENTIAL
 JEV_DEBUG=1    # include stack traces on error
 ```
 
+### Scriptability
+
+Every `jev` command is safe to run unattended. None of them prompt for confirmation, and none ever will for a non-destructive change.
+
+**Read-only** — never change stored credentials or config, safe to loop:
+`verify`, `screen`, `classify`, `extract`, `match`, `route`, `ask`, `find`, `rerank`, `compact`, `batch`, `models`, `update` (only checks PyPI), `version`, `auth status`, `config show|path|keys`.
+
+**Mutating** — write local state, still prompt-less:
+
+| Command | Writes to |
+|---------|-----------|
+| `jev auth login` | OS keychain, or `credentials.json` (0600) next to the config file / `$JEV_CREDENTIALS`. Prompts for the key on stdin unless `--key` is given. |
+| `jev auth logout` | Removes the key from the same store. |
+| `jev config set` / `unset` | Config file (`jev config path`). |
+
+Side effect on any command: the daily update check caches its result at `update-check.json` beside the config file. Disable with `JEV_NO_UPDATE_CHECK=1` or `-q`.
+
+In automation, prefer env vars (`TYPESAFE_API_KEY`, `JEV_*`) over `auth login` / `config set` so runs never touch shared state. Set `JEV_NO_STORED_CREDENTIALS=1` to ignore stored keys entirely.
+
+**Convention:** any future *destructive* command (e.g. a hypothetical `auth purge` or `config reset`) will require `--yes` to run non-interactively. Non-destructive mutations stay prompt-less.
+
 ## The MCP server: `jev-studio`
 
 ```bash
