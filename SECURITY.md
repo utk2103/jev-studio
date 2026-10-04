@@ -27,6 +27,6 @@ Out of scope:
 
 ## Secrets
 
-- API keys and provider credentials are read from environment variables at runtime.
+- API keys and provider credentials are read from environment variables at runtime, or from the OS keychain / a 0600 `credentials.json` written by `jev auth login`. See [README › Scriptability](README.md#scriptability) for which CLI commands write credentials or config.
 - Never commit `.env` files, tokens, or API keys — `.env` is in `.gitignore`.
 - The PyPI publish workflow (`.github/workflows/ci.yml`) uses a trusted publisher (`id-token: write`); no long-lived PyPI token is stored in the repo.
