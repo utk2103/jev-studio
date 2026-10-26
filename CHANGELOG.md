@@ -11,6 +11,14 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [0.3.0] - 2026-10-27
+
+### Added
 - `examples/`: visual use cases with Jev image input — `catalog_triage.py`
   (domain, category, attributes and a code-side catalog QC gate from
   product photos) and `auto_crop.py` (Box question + presence Noul to crop
