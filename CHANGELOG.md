@@ -35,6 +35,10 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 - `scripts/release.py --help` now warns on `--tag` to tag only after the
   version-bump PR merges to main; the note was only in the module
   docstring, which `--help` never showed (#13).
+
+## [0.2.1] - 2026-09-22
+
+### Fixed
 - MCP server failed to start on fresh installs because `mcp>=1.0.0`
   resolved to `mcp` 2.x, where `mcp.server.fastmcp` was renamed to
   `mcp.server.mcpserver` — pinned `mcp>=1.0.0,<2` in `pyproject.toml`.
@@ -54,8 +58,6 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
   or overwrite credentials stored by `jev-cli` when both are installed
   on the same machine. **Users who ran `jev auth login` on 0.2.0 will
   need to re-run it after upgrading.** Reported in #11.
-
-### Added
 
 ## [0.2.0] - 2026-09-21
 
