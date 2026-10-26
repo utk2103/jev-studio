@@ -11,6 +11,10 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
 ## [Unreleased]
 
 ### Added
+- `examples/`: visual use cases with Jev image input — `catalog_triage.py`
+  (domain, category, attributes and a code-side catalog QC gate from
+  product photos) and `auto_crop.py` (Box question + presence Noul to crop
+  to the product). Sample photos from Wikimedia Commons with attribution.
 - README "Scriptability" section documenting read-only vs state-mutating
   CLI commands and the `--yes` convention for future destructive commands;
   cross-linked from `SECURITY.md` (#12).

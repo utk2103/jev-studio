@@ -231,6 +231,8 @@ A curated collection of **726 Jev use cases** plus **50 runnable evals** — eve
 
 Browse: [jev-directory.netlify.app](https://jev-directory.netlify.app/#)
 
+Visual examples in this repo: [`examples/`](examples/) — jewellery catalog triage and product auto-crop from photos, using Jev's image input and Box questions.
+
 ## Credits
 
 The CLI is a Python port of the TypeScript [`jev-cli`](https://github.com/Nasrallah-AL/jev-cli), rebuilt on the standard library with the same command surface and question shapes.
