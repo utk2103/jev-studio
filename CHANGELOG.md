@@ -39,6 +39,17 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
   state and questions will pass through. Silent when `-P` is explicit.
   Ported from `jev-cli` 0.2.3.
 
+### Changed
+- Dependency bumps (`requirements.txt`): `mcp` 2.2.0 → 2.3.0,
+  `mcp-types` 2.2.0 → 2.3.0, `opentelemetry-api` 1.44.0 → 1.45.1,
+  `cryptography` 50.0.1 → 50.0.2, `pyjwt` 2.14.0 → 2.15.1,
+  `sse-starlette` 3.4.11 → 3.5.0, `starlette` 1.6.0 → 1.7.0,
+  `uvicorn` 0.53.0 → 0.54.0, `httpx2` 2.13.0 → 2.13.1,
+  `httpcore2` 2.13.0 → 2.13.1.
+- CI actions: `actions/setup-python` v5 → v7, `actions/upload-artifact`
+  v4 → v7, `actions/download-artifact` v4 → v8.
+- README: quality and maintenance score badges.
+
 ### Fixed
 - `scripts/release.py --help` now warns on `--tag` to tag only after the
   version-bump PR merges to main; the note was only in the module
