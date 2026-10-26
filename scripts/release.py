@@ -116,7 +116,13 @@ def run(cmd: list[str]) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("version", help="New version, e.g. 0.2.0")
-    ap.add_argument("--tag", action="store_true", help="Create git tag v<version> after commit")
+    ap.add_argument(
+        "--tag",
+        action="store_true",
+        help="Create git tag v<version> after commit. Only tag once the version-bump "
+        "PR is merged to main; tagging earlier makes CI build the previous version "
+        "and PyPI rejects it as a duplicate (#13).",
+    )
     ap.add_argument("--no-commit", action="store_true", help="Bump files only, skip git commit")
     args = ap.parse_args()
 

@@ -32,6 +32,9 @@ and `.codex-plugin/plugin.json` are kept in lockstep — every release bumps all
   Ported from `jev-cli` 0.2.3.
 
 ### Fixed
+- `scripts/release.py --help` now warns on `--tag` to tag only after the
+  version-bump PR merges to main; the note was only in the module
+  docstring, which `--help` never showed (#13).
 - MCP server failed to start on fresh installs because `mcp>=1.0.0`
   resolved to `mcp` 2.x, where `mcp.server.fastmcp` was renamed to
   `mcp.server.mcpserver` — pinned `mcp>=1.0.0,<2` in `pyproject.toml`.
