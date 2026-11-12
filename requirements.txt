@@ -70,7 +70,7 @@ starlette==1.7.0
     # via
     #   mcp
     #   sse-starlette
-truststore==0.10.4
+truststore==0.10.5
     # via
     #   httpcore2
     #   httpx2
