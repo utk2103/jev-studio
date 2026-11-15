@@ -44,7 +44,7 @@ mcp-types==2.3.0
     # via mcp
 opentelemetry-api==1.45.1
     # via mcp
-pycparser==3.0
+pycparser==3.11
     # via cffi
 pydantic==2.13.5
     # via
